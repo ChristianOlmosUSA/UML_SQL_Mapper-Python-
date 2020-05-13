@@ -10,10 +10,10 @@ Your Job is to update he `src/models.py` file with the code needed to replicate 
 
 The project is using the SQLAlchemy Python library to generate the database.
 
-- What tables you think instagram my have on its database: E.g: Post, User, etc.?
+- What tables you think instagram may have on its database: E.g: Post, User, etc.?
 - What properties should go inside the user? or inside the Post table?
 - Please add at least 4 models with all of its properties.
-- Degenerate the diagram.png file at the end by running `$ python3 models.py` on the console.
+- Regenerate the diagram.png file at the end by running `$ python3 models.py` on the console.
 
 ## ❔How to generate the UML diagram?
 

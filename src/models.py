@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -14,6 +14,7 @@ class Person(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+   
 
 class Address(Base):
     __tablename__ = 'address'
@@ -25,6 +26,29 @@ class Address(Base):
     post_code = Column(String(250), nullable=False)
     person_id = Column(Integer, ForeignKey('person.id'))
     person = relationship(Person)
+
+
+followers_table = Table('followers', Base.metadata,
+    Column('from_id', Integer, ForeignKey('user.id')),  #foreignKey is inherited
+    Column('to_id', Integer, ForeignKey('user.id'))
+)
+
+class User(Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    password = 'somehashedcode'
+    followers = relationship(
+        "User",
+        secondary = followers_table,
+        back_populates="Users")
+    posts = relationship("Post")
+    
+
+class Post(Base):
+    __tablename__ = 'post'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    
 
     def to_dict(self):
         return {}
